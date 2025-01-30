@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Library as LibraryData, Component as ComponentType } from "../../data/componentsData";
+import { filterObjectsBySearch, filterComponentsByCategory, gatherCategories } from "../../helpers/objectTransformations";
 import CategoryList from "../CategoryList";
 import ComponentList from "../ComponentList";
 import SearchBar from "../SearchBar";
-import { filterObjectsBySearch, filterComponentsByCategory, gatherCategories } from "../../helpers/objectTransformations";
 
 const Library: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");

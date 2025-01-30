@@ -32,7 +32,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
                             }`}
                         onClick={() => onCategorySelect(category)}
                         style={{ cursor: "pointer" }}
-                    >
+                    >   {/*Count of components */}
                         {category} (
                         {components.filter((component) => component.Categories.includes(category)).length})
                     </li>
