@@ -5,10 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [
     react(
-      // {
-      //   babel: {
-      //     plugins: [["babel-plugin-react-compiler"]],
-      //   },
-      // }
+      {
+        babel: {
+          /*Using react compiler for auto memoization and performance enhancement */
+          plugins: [["babel-plugin-react-compiler"]],
+        },
+      }
     )],
 })

@@ -3,6 +3,7 @@ import { Library as LibraryData, Component as ComponentType } from "../../data/c
 import CategoryList from "../CategoryList";
 import ComponentList from "../ComponentList";
 import SearchBar from "../SearchBar";
+import { filterObjectsBySearch, filterComponentsByCategory, gatherCategories } from "../../helpers/objectTransformations";
 
 const Library: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -11,30 +12,6 @@ const Library: React.FC = () => {
   const [countComponents, setCountComponents] = useState<ComponentType[]>(LibraryData.Components)
   const [categories, setCategories] = useState<string[]>(LibraryData.Categories)
 
-  function filterComponentsBySearch(components: ComponentType[], searchTerm: string) {
-    return components.filter((component) =>
-      component.Name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
-
-  function filterComponentsByCategory(category: string, components: ComponentType[]) {
-    const result = components.filter((component) => {
-      const matchesCategory = component.Categories.includes(category);;
-      return matchesCategory;
-    })
-    return result
-  }
-
-  function removeDuplicates(arr: string | any[]) {
-    return Array.from(new Set(arr));
-  }
-
-  function gatherCategories(components: ComponentType[]) {
-    const result = components.flatMap(component => {
-      return component.Categories
-    })
-    return removeDuplicates(result)
-  }
 
   useEffect(() => {
     let updatedComponents = LibraryData.Components
@@ -43,7 +20,7 @@ const Library: React.FC = () => {
 
     // Step 1: Filter components by search term and update components count
     if (searchTerm) {
-      updatedComponents = filterComponentsBySearch(updatedComponents, searchTerm)
+      updatedComponents = filterObjectsBySearch(updatedComponents, searchTerm, "Name")
       setCountComponents(updatedComponents)
     }
     // Step 2: Filter by category if selected
